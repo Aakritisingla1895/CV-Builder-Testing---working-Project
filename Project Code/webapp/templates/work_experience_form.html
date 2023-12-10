@@ -1,0 +1,79 @@
+<!-- question_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/work_experience_form">
+
+        {% csrf_token %}
+        <label for="{{ form.question_9.id_for_label }}">1. What is your current or most recent job title?  :</label>
+        {{ form.question_9 }}
+        <label for="{{ form.question_10.id_for_label }}">2. Can you list your previous job titles and the companies you worked for?</label>
+        {{ form.question_10 }}
+        <label for="{{ form.question_11.id_for_label }}">3. Describe any projects where you used analytical or problem-solving skills.</label>
+        {{ form.question_11 }}
+        <label for="{{ form.question_12.id_for_label }}">4. Have you ever been in a role that required data analysis or interpretation?</label>
+        {{ form.question_12 }}
+        <label for="{{ form.question_13.id_for_label }}">5. Can you provide examples of when you had to analyze a process and make recommendations for improvements?</label>
+        {{ form.question_13 }}
+        <label for="{{ form.question_14.id_for_label }}">6. Have you been a part of any major changes in your previous work place?</label>
+        {{ form.question_14 }}
+        
+        <button type="submit">Next</button>
+        
+    </form>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Document Preview</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            display: flex;
+            width: 80%;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        #formPanel, #previewPanel {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #documentForm {
+            text-align: center;
+        }
+
+        #documentContent {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        #previewContent {
+            background-color: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-y: auto;
+            max-height: 500px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+
+        <div id="previewPanel">
+            <div id="documentPreview">
+                <h2>Document Preview</h2>
+             
+                <div id="previewContent">
+                    {% if question_1_data %}
+                    <h1>{{ question_1_data }}</h1>
+                    <h3> Professional Summary</h3>
+                    <p> {{reply}} </p>
+                    <h3> Work Experience</h3>
+                {% else %}
+                    <p>No data available.</p>
+                {% endif %}
+                </div>
+            </div>
+            <br><br><br>
+            <button onclick="downloadPDF()">Download PDF</button>
+        </div>
+        
+    </div>
+
+    
+
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script>
+        function updateDocumentPreview() {
+            var content = document.getElementById('documentContent').value;
+            document.getElementById('previewContent').innerText = content;
+        }
+
+        function downloadPDF() {
+            var content = document.getElementById('previewContent');
+            
+            // Use html2pdf.js to create a PDF
+            html2pdf(content, {
+                margin: 10,
+                filename: 'document.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+    </script>
+</body>
+</html>

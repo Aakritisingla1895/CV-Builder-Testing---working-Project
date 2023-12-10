@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Template</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .profile {
+            margin-top: 20px;
+        }
+
+        .education {
+            margin-top: 20px;
+        }
+
+        .experience {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ name }} {{ title }}</h1>
+    <h2>{{ title }}</h2>
+
+    <div class="contact-info">
+        {% for item in contact_info %}
+            <p><strong>{{ item.label }}</strong>: {{ item.value }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="profile">
+        <h2>Profile</h2>
+        <p>{{ profile }}</p>
+    </div>
+
+    <div class="education">
+        <h2>Education</h2>
+        <ul>
+            {% for institution in education %}
+                <li>{{ institution.institution }}, {{ institution.location }} ({{ institution.graduation_date }})</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="experience">
+        <h2>Experience</h2>
+        <ul>
+            {% for company in experience %}
+                <li><strong>{{ company.company }}, {{ company.location }} ({{ company.dates_employed }})</strong></li>
+                <ul>
+                    {% for responsibility in company.responsibilities %}
+                        <li>{{ responsibility }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

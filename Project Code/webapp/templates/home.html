@@ -1,0 +1,206 @@
+
+<!-- your_template.html -->
+{% extends 'base.html' %}
+
+{% block title %}Your Page Title{% endblock %}
+
+{% block content %}
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>CV Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<style>
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+    
+    .cv-builder-container {
+        background-color: white;
+        width: 80%;
+        margin: 50px auto;
+        padding: 20px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .user-info {
+        float: right;
+        text-align: right;
+    }
+    
+    .options {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .option {
+        width: 48%;
+        border: 1px solid #d9d9d9;
+        padding: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    button {
+        
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    .chat-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #1d88ed;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .profile {
+        background-color: white;
+        color: #4CAF50;
+        padding: 10px;
+        border-radius: 5px;
+        
+    }
+
+    #analyzeButton {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    
+</style>
+
+
+<body>
+    <div class="cv-builder-container">
+        <h1>CV BUILDER</h1>
+        <div class="user-info">
+            <p></p>
+            <p></p>
+        </div>
+        <h2>How would you like to begin?</h2>
+        <div class="options">
+            <div class="option">
+                <h3>Create a new CV</h3>
+                <p>We'll guide you through each section!</p>
+                <button href = "/question_form" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'question_form' %}" id="analyzeButton">Build CV</a> </button>
+            </div>
+            <div class="option">
+                <h3>Upload my current CV</h3>
+
+                <input type="file" id="fileInput" accept=".pdf, .doc, .docx">
+            <button id="submitButton">Submit</button>
+
+           
+            <div class="container">
+                
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal-dialog">
+                  
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Modal Header</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Some text in the modal.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+              </div>
+  
+            
+
+            <script>
+                const fileInput = document.getElementById('fileInput');
+                const submitButton = document.getElementById('submitButton');
+
+                let selectedFile = null;
+
+                fileInput.addEventListener('change', (e) => {
+                    selectedFile = e.target.files[0];
+                });
+
+                submitButton.addEventListener('click', () => {
+                    if (selectedFile) {
+                        // Process the file and create a preview as shown in the previous code
+
+                        // Open the preview in a new browser window
+                        openPreviewInNewWindow();
+                    } else {
+                        alert('Please select a file before submitting.');
+                    }
+                });
+
+                function openPreviewInNewWindow() {
+                    const fileType = selectedFile.type;
+                    const reader = new FileReader();
+
+                    reader.onload = (e) => {
+                        const content = e.target.result;
+                        const newWindow = window.open('', '_blank', 'width=800,height=600');
+                        newWindow.document.open();
+                        newWindow.document.write('<html><head><title>File Preview</title></head><body>');
+                        
+                        if (fileType === 'application/pdf') {
+                            // Display PDF
+                            newWindow.document.write('<iframe src="data:application/pdf;base64,' + btoa(content) + '" width="100%" height="100%"></iframe>');
+                        } else if (fileType === 'application/msword' || fileType === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+                            // Display Word document
+                            newWindow.document.write('<object data="data:' + fileType + ';base64,' + btoa(content) + '" width="100%" height="100%"></object>');
+                        } else {
+                            newWindow.document.write('Unsupported file format');
+                        }
+
+                        newWindow.document.write('</body></html>');
+                        newWindow.document.close();
+                    };
+
+                    reader.readAsBinaryString(selectedFile);
+                }
+            </script>
+
+      
+            </div>
+
+            
+        
+        <div class="chat-widget">
+            <div class="profile">
+                <p>Jenny Martins</p>
+            </div>
+            <div class="chat-content">
+                <p>Help me!</p>
+            </div>
+        </div>
+
+       
+    </div>
+
+ 
+    <!-- Trigger the modal with a button -->
+
+    <button href = "/processingCV" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'processingCV' %}" id="analyzeButton">Analyze CV</a> </button>
+    
+    {% endblock %}

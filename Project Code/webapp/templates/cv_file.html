@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Scanner</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+
+	body {
+		font-family: Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		background-color: #f4f4f4;
+	  }
+	  
+	  .header {
+		background-color: #ff5252;
+		color: white;
+		text-align: center;
+		padding: 10px;
+		font-size: 14px;
+	  }
+	  
+	  .community-link {
+		color: white;
+		text-decoration: none;
+	  }
+	  
+	  .resume-uploader {
+		background: white;
+		padding: 20px;
+		margin: 20px;
+	  }
+	  
+	  .file-name {
+		background: #e0e0e0;
+		border: dashed 2px lightgray;
+		padding: 10px;
+		margin-bottom: 20px;
+		font-size: 14px;
+	  }
+	  
+	  .select-label, .keywords label {
+		display: block;
+		margin-bottom: 5px;
+		font-weight: bold;
+	  }
+	  
+	  #job-role {
+		width: 100%;
+		padding: 10px;
+		margin-bottom: 20px;
+	  }
+	  
+	  .keywords input {
+		width: calc(100% - 22px); /* 22px accounts for border and padding */
+		padding: 10px;
+		margin-bottom: 20px;
+		border: 1px solid #ccc;
+	  }
+	  
+	  .scan-btn {
+		background-color: #7b1fa2;
+		color: white;
+		padding: 15px 20px;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+		font-size: 16px;
+		border-radius: 4px;
+	  }
+	  
+	  .matching-score {
+		text-align: center;
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	  }
+
+      .score-indicator {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+      }
+  
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+  
+      circle {
+        cx: 50;
+        cy: 50;
+        r: 45;
+        fill: #ccc;
+        transition: fill 0.3s ease;
+      }
+  
+      .score-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5em;
+      }
+	  
+	  
+</style>
+<body>
+<div class="header">
+  <a href="#" class="community-link">Click here to join our community of experts to get information on job search, salaries and more.</a>
+</div>
+
+<div class="resume-uploader">
+  <div class="file-name">SH CV-BA.pdf</div>
+  <label for="job-role" class="select-label">Select job role*</label>
+  <select id="job-role" name="job-role">
+    <option value="business-analyst">Business Analyst</option>
+    <option value="machine-learning-engineer">Fill Gap on my CV</option>
+    <option value="machine-learning-engineer">Machine Learning Engineer</option>
+
+    <!-- Add other job roles here -->
+  </select>
+
+  <div class="keywords">
+    <label for="keywords-input">Keywords</label>
+    <input type="text" id="keywords-input" value="Gap Analysis, User Stories, Balsamiq, AS IS and TO BE" readonly>
+  </div>
+
+  <button type="button" class="scan-btn">Scan Your Resume</button>
+</div>
+
+<div class="matching-score" id = "matching-score" style="align:center;">
+    <div class="score-indicator" id = "score-indicator">
+    <svg>
+      <circle cx="50" cy="50" r="45" />
+    </svg>
+    <div class="score-text">0%</div>
+  </div>
+  <input type="file" id="pdfFileInput" accept=".pdf">
+  <button id="submitBtn">Submit</button>
+  
+</div>
+
+
+<script>
+    const scoreIndicator = document.querySelector('.score-indicator');
+    const circle = scoreIndicator.querySelector('circle');
+    const scoreText = scoreIndicator.querySelector('.score-text');
+    const submitButton = document.getElementById('submitBtn');
+
+    document.getElementById('pdfFileInput').addEventListener('change', function (event) {
+      // Reset the score indicator
+      updateScore(0);
+    });
+
+    submitButton.addEventListener('click', async function () {
+      const randomScore = Math.floor(Math.random() * 101); // Generate a random score between 0 and 100
+      updateScore(randomScore);
+    });
+
+    function updateScore(score) {
+      circle.style.fill = `rgb(${255 - (score * 2.55)}, ${(score * 2.55)}, 0)`; // Red to green gradient based on the score
+      scoreText.textContent = `${score}%`; // Display the score as an integer
+    }
+  </script>
+
+</body>
+</html>

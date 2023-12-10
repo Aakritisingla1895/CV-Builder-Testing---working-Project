@@ -1,0 +1,11 @@
+from django.contrib import admin
+from webapp.models import StudentUser, PersonalInformationQuestionResponse, ProfessionalSummaryQuestionResponse, WorkExperienceQuestionResponse, TechnicalSkillsQuestionResponse, CertificationsQuestionsResponse, EducationQuestionResponse
+
+# Register your models here.
+admin.site.register(StudentUser)
+admin.site.register(PersonalInformationQuestionResponse)
+admin.site.register(ProfessionalSummaryQuestionResponse)
+admin.site.register(WorkExperienceQuestionResponse)
+admin.site.register(TechnicalSkillsQuestionResponse)
+admin.site.register(CertificationsQuestionsResponse)
+admin.site.register(EducationQuestionResponse)

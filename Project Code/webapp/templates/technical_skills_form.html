@@ -1,0 +1,74 @@
+<!-- question_form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/technical_skills_form">
+
+        {% csrf_token %}
+        <label for="{{ form.question_15.id_for_label }}">1. Are you familiar with any business analysis tools (e.g., Excel, SQL, Jira, confluence, basecamp, Visio, draw.io, balsamiq cloud)?  :</label>
+        {{ form.question_15 }}
+        <label for="{{ form.question_16.id_for_label }}">2. Have you used any project management tools (e.g., JIRA, Trello, Asana)?</label>
+        {{ form.question_16 }}
+        <label for="{{ form.question_17.id_for_label }}">3. Do you have experience with any business intelligence software (e.g., Tableau, Power BI)?</label>
+        {{ form.question_17 }}
+    
+        
+        <button type="submit">Next</button>
+        
+    </form>
+</body>
+</html>
