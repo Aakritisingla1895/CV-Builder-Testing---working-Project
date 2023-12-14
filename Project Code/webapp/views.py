@@ -6,7 +6,7 @@ from .forms import PDFUploadForm
 from django.contrib.sessions.models import Session
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from docx.shared import Inches 
 from spacy.language import Language
 from spacy_langdetect import LanguageDetector # spacy library - function to detect language of a text
@@ -26,17 +26,7 @@ from .secret_key import API_KEY
 # loading the API key from the secret_key file
 openai.api_key = API_KEY
 
-from django.urls import reverse_lazy
-from django.contrib.auth.views import LoginView, PasswordResetView, PasswordChangeView
-from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
-from django.views import View
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login, logout
-
-from .forms import RegisterForm, LoginForm, UpdateUserForm, UpdateProfileForm
-
-from .forms import PDFUploadForm, PersonalInformationQuestionForm, ProfessionalSummaryQuestionForm, WorkExperienceQuestionForm, EducationQuestionForm, CertificationsQuestionForm, TechnicalSkillsQuestionForm
+from .forms import PDFUploadForm, Page1Form, Page2Form, Page3Form, Page4Form, Page5Form,Page6Form
 
 import os
 
@@ -45,18 +35,13 @@ keywords = ['Gap Analysis','Process Mapping','Prototyping','UML Diagram','User S
 'Waterfall Methodologies','Business Process Improvement','Business Analysis','Requirements Analysis','Digital & Tech Transformation','Business Transformation',
 'Performance Management','AS IS and TO BE','Scrum meetings','Facilitating meetings and workshops','interviewing stakeholders']
 
-
-
 def home(request):
 
     return render(request,'home.html')
 
-
-
 def login_screen(request):
     
     return render(request, 'index.html')
-
 
 def signup(request):
     if request.method == 'POST':
@@ -92,6 +77,15 @@ def userlogin(request):
         
     return render(request,'index.html')
 
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+def home(request):
+
+    return render(request,'home.html')
+
 def about_us(request):
     
     return render(request,'about-us.html')
@@ -124,108 +118,59 @@ def processingCV(request):
     return render(request, 'cv_file.html')
 
 
-
-
 def question_form(request):
     if request.method == 'POST':
-        form = PersonalInformationQuestionForm(request.POST)
+        form = Page1Form(request.POST)
         if form.is_valid():
-            # Process form submission if needed
-            user_response = PersonalInformationQuestionResponse(
-                question_1=form.cleaned_data['question_1'],
-                question_2=form.cleaned_data['question_2'],
-                question_3=form.cleaned_data['question_3'],
-                question_4=form.cleaned_data['question_4'],
-                question_5=form.cleaned_data['question_5']
-            )
-            user_response.save()
-            
-            
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('professional_experience_form')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('professional_experience_form')  # Redirect to the next page
     else:
-        form = PersonalInformationQuestionForm()
+        form = Page1Form()
+
 
     return render(request, 'personal_information_form.html', {'form': form})
 
 def professional_experience_form(request):
     if request.method == 'POST':
-        form = ProfessionalSummaryQuestionForm(request.POST)
+        form = Page2Form(request.POST)
         if form.is_valid():
-            
-            user_response = ProfessionalSummaryQuestionForm(
-                question_6=form.cleaned_data['question_6'],
-                question_7=form.cleaned_data['question_7'],
-                question_8=form.cleaned_data['question_8']
-            )
-            user_response.save()
-            # Process form submission if needed
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('work_experience_form')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('work_experience_form')  # Redirect to the thank you page or another page
     else:
-        form = ProfessionalSummaryQuestionForm()
-
+        form = Page2Form()
     return render(request, 'professional_experience_form.html', {'form': form})
 
 def work_experience_form(request):
     if request.method == 'POST':
-        form = WorkExperienceQuestionForm(request.POST)
+        form = Page3Form(request.POST)
         if form.is_valid():
-            
-            user_response = WorkExperienceQuestionForm(
-                question_9=form.cleaned_data['question_9'],
-                question_10=form.cleaned_data['question_10'],
-                question_11=form.cleaned_data['question_11'],
-                question_12=form.cleaned_data['question_12'],
-                question_13=form.cleaned_data['question_13'],
-                question_14=form.cleaned_data['question_14']
-            )
-            user_response.save()
-            # Process form submission if needed
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('technical_skills_form')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('technical_skills_form')  # Redirect to the thank you page or another page
     else:
-        form = WorkExperienceQuestionForm()
+        form = Page3Form()
 
     return render(request, 'work_experience_form.html', {'form': form})
 
 def technical_skills_form(request):
     if request.method == 'POST':
-        form = TechnicalSkillsQuestionForm(request.POST)
+        form = Page4Form(request.POST)
         if form.is_valid():
-            
-            user_response = TechnicalSkillsQuestionForm(
-                question_15=form.cleaned_data['question_15'],
-                question_16=form.cleaned_data['question_16'],
-                question_17=form.cleaned_data['question_17'],
-                
-            )
-            user_response.save()
-            # Process form submission if needed
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('certifications_form')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('certifications_form')  # Redirect to the thank you page or another page
     else:
-        form = TechnicalSkillsQuestionForm()
+        form = Page4Form()
 
     return render(request, 'technical_skills_form.html', {'form': form})
 
 
 def certifications_form(request):
     if request.method == 'POST':
-        form = CertificationsQuestionForm(request.POST)
+        form = Page5Form(request.POST)
         if form.is_valid():
-            
-            user_response = CertificationsQuestionForm(
-                question_18=form.cleaned_data['question_18'],
-                question_19=form.cleaned_data['question_19'],
-                
-            )
-            user_response.save()
-            # Process form submission if needed
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('question_form')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('education_form')  # Redirect to the thank you page or another page
     else:
-        form = CertificationsQuestionForm()
+        form = Page5Form()
 
     return render(request, 'certifications_form.html', {'form': form})
 
@@ -233,22 +178,12 @@ def certifications_form(request):
 
 def education_form(request):
     if request.method == 'POST':
-        form = EducationQuestionForm(request.POST)
+        form = Page6Form(request.POST)
         if form.is_valid():
-            
-            user_response = EducationQuestionForm(
-                question_20=form.cleaned_data['question_20'],
-                question_21=form.cleaned_data['question_21'],
-                
-            )
-            user_response.save()
-              # Store question_1 in the session
-            request.session['question_1'] = form.cleaned_data['question_1']
-            # Process form submission if needed
-            # Access answers using form.cleaned_data['question_1'], form.cleaned_data['question_2'], etc.
-            return redirect('chatgptBackend')  # Redirect to a thank you page or another page as needed
+            form.save()
+            return redirect('chatgptBackend')  # Redirect to the thank you page or another page
     else:
-        form = EducationQuestionForm()
+        form = Page6Form()
 
     return render(request, 'education_form.html', {'form': form})
 
@@ -316,3 +251,44 @@ def generate_word_template(request):
     }
     
     return render(request, 'test_cv.html',context)
+
+
+
+def test_front(request):
+    
+    return render(request, 'test_html.html')
+
+
+def test_buildCV(request):
+    messages = [ {"role": "system", "content":  
+              "You are a intelligent assistant."} ] 
+    
+    
+    userQAresponse = "I have a solid background in IT with 3 years of experience. I have worked in various roles, including software engineer, where I've gained expertise in business analysis. My professional journey has been characterized by a commitment to  and a focus on delivering high-quality results. I am proficient in a variety of tools commonly used for business analysis. This includes advanced proficiency in tools such as Microsoft Excel for data analysis and visualization, SQL for database querying, and Tableau for creating insightful dashboards. Additionally, I have experience with business intelligence tools like Power BI and statistical analysis tools like R and Python. These tools have allowed me to extract meaningful insights from complex datasets, facilitating informed decision-making within the organizations I've worked for.One of my notable achievements is [provide a specific achievement]. In my previous role at [company], I spearheaded a [mention project or initiative] that resulted in [quantifiable result, such as increased efficiency, cost savings, revenue growth, etc.]. This accomplishment not only showcased my ability to [highlight a key skill or competency] but also had a tangible impact on the overall success of the team and the organization."
+    
+    # Retrieve the latest user response from the database
+    latest_response = PersonalInformationQuestionResponse.objects.last()
+
+    # Access the data from the retrieved response
+    if latest_response:
+        question_1_data = latest_response.question_1
+        # Add your logic here
+        print(f"Retrieved data in chatgpt function: {question_1_data}")
+        
+        message = "Give a professional summary for Business Analysts profile in 4 sentences summarizing below content"
+        if message: 
+            messages.append( 
+                {"role": "user", "content": message}, 
+            ) 
+            chat = openai.ChatCompletion.create( 
+                model="gpt-3.5-turbo", messages=messages 
+            ) 
+        reply = chat.choices[0].message.content 
+        print(f"ChatGPT: {reply}") 
+        messages.append({"role": "assistant", "content": reply}) 
+        
+         # Pass the data to the template context
+       
+        context = {'reply':reply, 'question_1_data': question_1_data}
+    
+        return render(request, 'build_cv_template.html', context)

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume Review</title>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
+    .sidebar {
+        width: 200px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .main-content {
+        flex-grow: 1;
+        padding: 20px;
+        background-color: #f4f4f4;
+    }
+    .resume-score {
+        width: 150px;
+        height: 150px;
+        border: 6px solid blue;
+        border-radius: 50%;
+        font-size: 2em;
+        color: blue;
+        text-align: center;
+        line-height: 140px;
+        margin-bottom: 20px;
+    }
+    .summary, .feedback, .education {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .feedback-tabs {
+        display: flex;
+        margin-bottom: 10px;
+    }
+    .feedback-tab {
+        flex-grow: 1;
+        text-align: center;
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+    }
+    .feedback-tab.active {
+        border-bottom: 2px solid blue;
+        color: blue;
+    }
+    /* Rest of the styles */
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+    <!-- Sidebar content -->
+</div>
+
+<div class="main-content">
+    <h1 style="align:center"> Resume Analysis </h1>
+    <div class="resume-score">8.5</div>
+    <div class="summary">
+        <!-- Summary content -->
+
+        <h2> Summary </h2>
+
+        <p>
+
+            A professional Business Analyst with 5+ years of experience in conducting detailed analysis of business processes and requirements. Proven expertise in identifying areas for improvement and implementing effective solutions to optimize productivity and profitability. Strong analytical skills and ability to translate complex data into actionable insights. Excellent communication and stakeholder management skills to collaborate with cross-functional teams and drive successful project outcomes.
+        </p>
+    </div>
+    <div class="feedback">
+        <div class="feedback-tabs">
+            <div class="feedback-tab active">Matches</div>
+            <div class="feedback-tab">Shortfalls</div>
+            <div class="feedback-tab">Improvements</div>
+        </div>
+        <!-- Feedback content -->
+    </div>
+    <div class="education">
+        <!-- Education content -->
+
+        <h2> Education </h2>
+
+        <p>
+
+            The candidate holds a Bachelor's and a Master's degree in Computer Science and Technology respectively, specializing in AI/ML and Big Data Analytics, which aligns with the job requirement.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

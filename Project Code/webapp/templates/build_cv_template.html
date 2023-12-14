@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Multipurpose Template</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/img/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+
+</head>
+
+<style>
+    #previewPanel {
+        flex: 1;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    #documentForm {
+        text-align: center;
+    }
+
+    #documentContent {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    #previewContent {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        line-height: 1.6;
+        overflow-y: auto;
+        max-height: 500px;
+    }
+
+</style>
+
+<body class="ali-bg">
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="preload-content">
+            <div id="dream-load"></div>
+        </div>
+    </div>
+
+
+    <!-- ##### Blog Area Start ##### -->
+    <section class="blog-area">
+        <div class="container-fluid">
+
+            <div class="row">
+
+                <div class="col-12 col-md-7">
+                    <div class="cv-download">
+                        <div class="row align-items-center">
+                            
+                            <div class="col-lg-6 col-md-12">
+                                <p class="topnote">Fill all required fields and click create cv to download CV in both PDF and PNG formats</p>
+                                
+                            </div>
+                            <div class="col-lg-6 col-md-12 mt-s">
+                                <a  class="btn btn-primary" onclick="downloadPDF()">Download as PDF</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+
+                        <form method="post" action="#">
+                            <div class="mt-150">
+                                <h2>Personal Info</h2>
+                                <div class="block-container">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-2 col-md-4">
+                                            <img src="/static/img/test-img/1.jpg" class="d-block" alt="">
+                                        </div>
+                                        <div class="col-lg-5 col-md-8 mt-s">
+                                            <h6 class="">Upload your picture</h6>
+                                            <p class="text-muted mb-0">For best results, use image 300px by 300px in either .jpg or .png</p>
+                                        </div>
+                                        <div class="col-lg-5 col-md-12 mt-s">
+                                            <a href="#" class="btn btn-primary">Upload</a>
+                                            <a href="#" class="btn btn-soft-primary ms-2">Remove</a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-30">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <label>Full Name:</label>
+                                                <input type="text" name="full-name" class="form-control" placeholder="enter your name">
+                                            </div>
+                                            
+                                            <div class="col-lg-6">
+                                                <label>Jop Title:</label>
+                                                <input type="text" name="jop-title" class="form-control" placeholder="Ex: Web Developer">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label>Your Address:</label>
+                                                <input type="text" name="address" class="form-control" placeholder="enter your address">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label>Your Email:</label>
+                                                <input type="text" name="email" class="form-control" placeholder="enter your name">
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label>Website Link:</label>
+                                                <input type="text" name="web-link" class="form-control" placeholder="enter your website link">
+                                            </div>
+                                            
+                                            <div class="col-lg-6">
+                                                <label>Phone No:</label>
+                                                <input type="text" name="phone" class="form-control" placeholder="Ex: Web Developer">
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <label>Your Bio Here</label>
+                                                <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="About Me :"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group add-edu">
+                                <h2>Add Educations</h2>
+                                <div class="all-edus">
+                                    <div class="new-edu">
+                                        <label>Field of study:</label>
+                                        <input type="text" name="edu[]" class="form-control" placeholder="Ex: Computer Science">
+                                        <label>Degree:</label>
+                                        <input type="text" name="edu[]" class="form-control" placeholder="Ex: Bachelor's">
+                                        <label>School:</label>
+                                        <input type="text" name="edu[]" class="form-control" placeholder="Ex: al-albayt university">
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <label>From year:</label>
+                                                <input type="month" name="edu[]" class="form-control">
+                                            </div>
+                                            <div class="col">
+                                                <label>To year (optional=present):</label>
+                                                <input type="month" name="edu[]" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="add-blk btn btn-info" id="add-edu"> 
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add another education</span>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group add-exp mt-s">
+                                <h2>Add Experiences</h2>
+                                <div class="all-exps">
+                                    <div class="new-exp">
+                                        <label>Title:</label>
+                                        <input type="text" name="exp[]" class="form-control" placeholder="Ex: Web Developer">
+                                        <label>Company:</label>
+                                        <input type="text" name="exp[]" class="form-control" placeholder="Ex: ProgressSoft">
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <label>From year:</label>
+                                                <input type="month" name="exp[]" class="form-control">
+                                            </div>
+                                            <div class="col">
+                                                <label>To year (optional=present):</label>
+                                                <input type="month" name="exp[]" class="form-control">
+                                            </div>
+                                        </div>
+                                        <label>Description (optional):</label>
+                                        <textarea name="exp[]" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="add-blk btn btn-info" id="add-exp">
+                                    <i class="fa fa-plus"></i>
+                                    <span>Add another experience</span>
+                                </div>
+                            </div>
+                            
+                            <div class="clearfix"></div>
+                            
+                            <div class="form-group add-skill mt-s">
+                                <h2>Add Skills</h2>
+                                <div class="block-container">
+                                    <div class="all-skills">
+                                        <div class="new-skills">
+                                            <label>Skill</label>
+                                            <input type="text" name="skills[]" class="form-control">
+                                            <label>Proficiency</label>
+                                            <input type="text" name="skills[]" class="form-control">
+                                        </div>
+                                    </div>
+                                
+
+                                    <div class="add-blk add-skills btn btn-info mt-50">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Add another Skill</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="form-group add-social mt-s">
+                                <h2>Add social Links</h2>
+                                <div class="block-container">
+                                    <div class="all-socials">
+                                        <div class="new-skills">
+                                            <label>Social Name</label>
+                                            <input type="text" name="socials[]" class="form-control">
+                                            <label>Social Link</label>
+                                            <input type="text" name="socials[]" class="form-control">
+                                            <label>Social icon image (16px*16px)</label>
+                                            <input type="file" name="socials[]" class="form-control" />
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="add-blk add-socials btn btn-info mt-50">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Add another social</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="form-group add-social mt-s">
+                                <h2>Add Hoppies</h2>
+                                <div class="block-container">
+                                    <div class="all-hoppies">
+                                        <div class="new-skills">
+                                            <label>Hoppy icon image (32px*32px)</label>
+                                            <input type="file" name="hoppies[]" class="form-control" />
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="add-blk add-hoppies btn btn-info mt-50">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Add another Hoppy</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="mt-100">
+                            <input type="submit" name="submit" value="Create Resume" class="btn-sub">
+                            
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-5">
+                    <div class="cv-prev">
+                        <!-- Post Thumbnail -->
+                        <div id="previewPanel">
+                            <div id="documentPreview">
+                                <h2>Document Preview</h2>
+                             
+                                <div id="previewContent" style="color:black">
+                                    {% if question_1_data %}
+                                    <h1>{{ question_1_data }}</h1>
+                                    <h3> Professional Summary</h3>
+                                    <p style="color:black"> {{reply}} </p>
+                                    <h3> Work Experience</h3>
+                                    <p style="color:black">As a recent graduate, I interned at XYZ Company, gaining practical experience in various projects. I previously held roles as a student researcher and part-time customer service representative. Academic projects showcased my analytical skills, and responsibilities at ABC University involved data analysis. I've evaluated processes, proposing improvements in a supply chain project. While not in a traditional workplace, I contributed to implementing student engagement initiatives at ABC University, highlighting my adaptability and commitment to positive change.<p>
+                                {% else %}
+                                    <p>No data available.</p>
+                                {% endif %}
+                                </div>
+                            </div>
+                           
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- ##### Blog Area End ##### -->
+
+
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <script>
+        function updateDocumentPreview() {
+            var content = document.getElementById('documentContent').value;
+            document.getElementById('previewContent').innerText = content;
+        }
+
+        function downloadPDF() {
+            var content = document.getElementById('previewContent');
+            
+            // Use html2pdf.js to create a PDF
+            html2pdf(content, {
+                margin: 10,
+                filename: 'document.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+    </script>
+
+
+    <!-- ########## All JS ########## -->
+    <!-- jQuery js -->
+    <script src="/static/js/jquery.min.js"></script>
+    <!-- Popper js -->
+    <script src="/static/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/static/js/plugins.js"></script>
+    <!-- Parallax js -->
+    <script src="/static/js/dzsparallaxer.js"></script>
+    <!-- Active js -->
+    <script src="/static/js/form-script.js"></script>
+    <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>

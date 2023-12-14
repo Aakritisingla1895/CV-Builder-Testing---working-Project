@@ -1,27 +1,27 @@
+<!DOCTYPE html>
+<html lang="zxx">
 
-<!-- your_template.html -->
-{% extends 'base.html' %}
-
-{% block title %}Your Page Title{% endblock %}
-
-{% block content %}
 <head>
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>CV Builder</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>TLA CV Builder</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="/static/img/core-img/favicon.ico">
+
+    <!-- Core Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Responsive Stylesheet -->
+    <link rel="stylesheet" href="/static/css/responsive.css">
+
 </head>
 
 <style>
-
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-    }
-    
     .cv-builder-container {
         background-color: white;
         width: 80%;
@@ -80,31 +80,95 @@
         align-items: center;
     }
     
-    
 </style>
 
+<body class="light-version">
+   
 
-<body>
-    <div class="cv-builder-container">
-        <h1>CV BUILDER</h1>
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+        <div class="classy-nav-container dark breakpoint-off">
+            <div class="container">
+                <!-- Classy Menu -->
+                <nav class="classy-navbar justify-content-between" id="dreamNav">
+
+                    <!-- Logo -->
+                    <a class="nav-brand" href="index-2.html"><img src="/static/img/core-img/logo.png" alt="logo"> CV Builder.</a>
+
+                    <!-- Navbar Toggler -->
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+
+                    <!-- Menu -->
+                    <div class="classy-menu">
+
+                        <!-- close btn -->
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+
+                        <!-- Nav Start -->
+                        <div class="classynav">
+                            <ul id="nav">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="/about_us">About Us</a></li>
+                                <li><a href="templates.html">Templates</a></li>
+                                <li><a href="contact-us.html">Contact</a></li>
+
+                                <li><a href="contact-us.html">Logout</a></li>
+                            </ul>
+
+                
+                           
+
+                        
+                        </div>
+                        <!-- Nav End -->
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+   
+  
+
+    <section class="welcome_area demo2 flex align-items-center">
+        
+
+        <div class="cv-builder-container">
+            <h2>Welcome, {{ user.username }}!</h2>
+        <h3>Lets help you build your CV</h3>
         <div class="user-info">
             <p></p>
             <p></p>
         </div>
-        <h2>How would you like to begin?</h2>
+        <h5>How would you like to begin?</h5>
         <div class="options">
             <div class="option">
                 <h3>Create a new CV</h3>
                 <p>We'll guide you through each section!</p>
+                <br><br>
                 <button href = "/question_form" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'question_form' %}" id="analyzeButton">Build CV</a> </button>
             </div>
             <div class="option">
                 <h3>Upload my current CV</h3>
 
                 <input type="file" id="fileInput" accept=".pdf, .doc, .docx">
+                <br><br>
             <button id="submitButton">Submit</button>
 
-           
+            <br><br>
+            
+            <div class="clearfix"></div>
+
+            <div>
+
+
+                <button href = "/processingCV" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'processingCV' %}" id="analyzeButton">Analyze CV</a> </button>
+            </div>
             <div class="container">
                 
                 <!-- Modal -->
@@ -128,7 +192,11 @@
                   </div>
                 </div>
                 
-              </div>
+            </div>
+
+              
+
+            </section>
   
             
 
@@ -180,13 +248,14 @@
                     reader.readAsBinaryString(selectedFile);
                 }
             </script>
-
-      
             </div>
 
             
         
-        <div class="chat-widget">
+        
+        
+           
+            <div class="chat-widget">
             <div class="profile">
                 <p>Jenny Martins</p>
             </div>
@@ -197,10 +266,102 @@
 
        
     </div>
-
- 
-    <!-- Trigger the modal with a button -->
-
-    <button href = "/processingCV" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'processingCV' %}" id="analyzeButton">Analyze CV</a> </button>
     
-    {% endblock %}
+    <!-- ##### Footer Area Start ##### -->
+    <footer class="footer-area bg-img">
+
+        <div class="footer-content-area spec">
+            <div class="container">
+                <div class="row ">
+                    <div class="col-12 col-lg-4 col-md-6">
+                        <div class="footer-copywrite-info">
+                            <!-- Copywrite -->
+                            <div class="copywrite_text fadeInUp" data-wow-delay="0.2s">
+                                <div class="footer-logo">
+                                    <a href="#"><img src="/static/img/core-img/logo.png" alt="logo"> CV Builder </a>
+                                </div>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit ducimus voluptatibus neque illo id repellat quisquam? Autem expedita earum quae laborum ipsum ad.</p>
+                            </div>
+                            <!-- Social Icon -->
+                            <div class="footer-social-info fadeInUp" data-wow-delay="0.4s">
+                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                <a href="#"> <i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3 col-md-6">
+                        <div class="contact_info_area d-sm-flex justify-content-between">
+                            <!-- Content Info -->
+                            <div class="contact_info mt-x text-center fadeInUp" data-wow-delay="0.3s">
+                                <h5>PRIVACY & TOS</h5>
+                                <a href=""><p>Advertiser Agreement</p></a>
+                                <a href=""><p>Acceptable Use Policy</p></a>
+                                <a href=""><p>Privacy Policy</p></a>
+                                <a href=""><p>Technology Privacy</p></a>
+                                <a href=""><p>Developer Agreement</p></a>
+                            </div>
+                        </div>
+                    </div>
+                      
+                    <div class="col-12 col-lg-2 col-md-6 ">
+                        <!-- Content Info -->
+                        <div class="contact_info_area d-sm-flex justify-content-between">
+                            <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.2s">
+                                <h5>NAVIGATE</h5>
+                                <a href=""><p>Advertisers</p></a>
+                                <a href=""><p>Developers</p></a>
+                                <a href=""><p>Resources</p></a>
+                                <a href=""><p>Company</p></a>
+                                <a href=""><p>Connect</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-12 col-lg-3 col-md-6 ">
+                        <div class="contact_info_area d-sm-flex justify-content-between">
+                            <!-- Content Info -->
+                            <div class="contact_info mt-s text-center fadeInUp" data-wow-delay="0.4s">
+                                <h5>CONTACT US</h5>
+                                <p>Mailing Address:xx00 E. Union Ave</p>
+                                <p>Suite 1100. Denver, CO 80237</p>
+                                <p>+999 90932 627</p>
+                                <p>support@yourdomain.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+
+        
+    </footer>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ########## All JS ########## -->
+    <!-- jQuery js -->
+    <script src="/static/js/jquery.min.js"></script>
+    <!-- Popper js -->
+    <script src="/static/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- All Plugins js -->
+    <script src="/static/js/plugins.js"></script>
+    <script src="/static/js/particles.js"></script>
+    <script src="/static/js/app.js"></script>
+    <!-- Parallax js -->
+    <script src="/static/js/dzsparallaxer.js"></script>
+
+    <script src="/static/js/jquery.syotimer.min.js"></script>
+
+    <!-- script js -->
+    <script src="/static/js/script.js"></script>
+
+</body>
+
+</html>
