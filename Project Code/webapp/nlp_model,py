@@ -1,0 +1,29 @@
+import spacy
+import PyPDF2
+# Load the English pre-trained model with NER
+nlp = spacy.load('en_core_web_sm')
+
+# Step One: Import nltk and download necessary packages
+import nltk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
+
+# Processing Candidate CV
+
+with open('SH CV-BA.pdf', 'rb') as book:
+    book_reader = PyPDF2.PdfReader(book)
+    
+    page_list = book_reader.pages
+    
+    story_page = page_list[1]
+    page_text = story_page.extract_text()
+    #print(page_text)
+    
+    # Apply the NER model to the pdf text
+    doc = nlp(page_text.strip())
+    
+    print("test", doc)
+    
+    

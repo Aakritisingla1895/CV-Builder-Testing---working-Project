@@ -1,1 +1,2 @@
-API_KEY = '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'
+#last created on 18.12.2023
+API_KEY = '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'

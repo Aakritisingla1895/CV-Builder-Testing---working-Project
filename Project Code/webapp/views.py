@@ -1,7 +1,7 @@
 from unicodedata import name
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import PasswordResetForm
-from .models import StudentUser, PersonalInformationQuestionResponse
+from .models import StudentUser, PersonalInformationQuestionResponse,WorkExperienceQuestionResponse, TechnicalSkillsQuestionResponse, CertificationsQuestionsResponse, ProfessionalSummaryQuestionResponse, EducationQuestionResponse
 from .forms import PDFUploadForm
 from django.contrib.sessions.models import Session
 from django.contrib import messages
@@ -17,7 +17,6 @@ from docx.shared import Pt
 from docx.oxml.ns import qn
 from docx.oxml.shared import OxmlElement
 from docx.shared import RGBColor
-from docx2pdf import convert
 from django.http import  HttpResponse, FileResponse
 import re
 import openai
@@ -34,6 +33,17 @@ keywords = ['Gap Analysis','Process Mapping','Prototyping','UML Diagram','User S
 'Workshop Facilitation','Target Operating Model','Microsoft Visio','Microsoft Project','Draw IO','Asana','Basecamp','Balsamiq','Agile Methodologies',
 'Waterfall Methodologies','Business Process Improvement','Business Analysis','Requirements Analysis','Digital & Tech Transformation','Business Transformation',
 'Performance Management','AS IS and TO BE','Scrum meetings','Facilitating meetings and workshops','interviewing stakeholders']
+
+transferable_skills = [
+    "Communication Skills","Written communication","Verbal communication","Analytical Skills","Critical thinking","Problem-solving",
+    "Data analysis","Technical Proficiency","Business analysis tools","Microsoft Excel","Visio","Project management software",
+    "Basic understanding of databases","Project Management","Planning and organization","Stakeholder management",
+    "Requirements Gathering","Elicitation techniques","Documenting requirements","Process Modeling","Business process modeling",
+    "BPMN (Business Process Model and Notation)","Negotiation Skills","Resolving conflicts","Adaptability","Flexibility",
+    "Continuous learning","Attention to Detail","Accuracy","Decision-Making","Evaluating options","Risk analysis",
+    "Interpersonal Skills","Collaboration","Empathy","Time Management","Prioritization","Presentation Skills","Delivering presentations",
+    "Quality Assurance","Testing and validation","Leadership Skills","Leading meetings","Influence"
+]
 
 def home(request):
 
@@ -188,39 +198,79 @@ def education_form(request):
     return render(request, 'education_form.html', {'form': form})
 
 
+def progress_bar(request):
+    
+    return render(request, 'progress_bar.html')
+
+
 
 def chatgptBackend(request):
-    messages = [ {"role": "system", "content":  
-              "You are a intelligent assistant."} ] 
     
-    
-    userQAresponse = "I have a solid background in IT with 3 years of experience. I have worked in various roles, including software engineer, where I've gained expertise in business analysis. My professional journey has been characterized by a commitment to  and a focus on delivering high-quality results. I am proficient in a variety of tools commonly used for business analysis. This includes advanced proficiency in tools such as Microsoft Excel for data analysis and visualization, SQL for database querying, and Tableau for creating insightful dashboards. Additionally, I have experience with business intelligence tools like Power BI and statistical analysis tools like R and Python. These tools have allowed me to extract meaningful insights from complex datasets, facilitating informed decision-making within the organizations I've worked for.One of my notable achievements is [provide a specific achievement]. In my previous role at [company], I spearheaded a [mention project or initiative] that resulted in [quantifiable result, such as increased efficiency, cost savings, revenue growth, etc.]. This accomplishment not only showcased my ability to [highlight a key skill or competency] but also had a tangible impact on the overall success of the team and the organization."
-    
-    # Retrieve the latest user response from the database
-    latest_response = PersonalInformationQuestionResponse.objects.last()
+    # Define the system message
+    system_message = {"role": "system", "content": "You are an intelligent assistant."}
 
-    # Access the data from the retrieved response
-    if latest_response:
+    # Initialize messages with the system message
+    messages = [system_message]
+    
+     # Retrieve the latest user response from the database
+    latest_response = PersonalInformationQuestionResponse.objects.last()
+    work_experience_response= WorkExperienceQuestionResponse.objects.last()
+    professional_experience_response = ProfessionalSummaryQuestionResponse.objects.last()
+    technical_skills_response = TechnicalSkillsQuestionResponse.objects.last()
+    education_response = EducationQuestionResponse.objects.last()
+    
+
+    # Define user prompts
+    prompt1 = "Give a professional summary for a Business Analyst profile in 4 sentences summarizing below content"
+    prompt2 = f"Give a summary of {work_experience_response.question_10} and {work_experience_response.question_12}"
+    prompt3 = f"List down in 6 bullet points picking from {technical_skills_response.question_15} and {technical_skills_response.question_16} and pick only 6 imp words from this , highlighting them as skills"
+    prompt4 = f"can you pick up names of places of any college name , university name and major areas of study from {education_response.question_20} {education_response.question_21}"
+    
+    
+
+    # Process prompt1
+    if latest_response:  # Replace with your condition
         question_1_data = latest_response.question_1
-        # Add your logic here
-        print(f"Retrieved data in chatgpt function: {question_1_data}")
+        question_2_data = latest_response.question_2
+        messages.append({"role": "user", "content": prompt1})
+        chat_response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        assistant_reply1 = chat_response.choices[0].message.content
+        print(f"User Prompt 1: {prompt1}")
+        print(f"ChatGPT Response 1: {assistant_reply1}\n")
         
-        message = "Give a professional summary for Business Analysts profile in 4 sentences summarizing below content"
-        if message: 
-            messages.append( 
-                {"role": "user", "content": message}, 
-            ) 
-            chat = openai.ChatCompletion.create( 
-                model="gpt-3.5-turbo", messages=messages 
-            ) 
-        reply = chat.choices[0].message.content 
-        print(f"ChatGPT: {reply}") 
-        messages.append({"role": "assistant", "content": reply}) 
         
-         # Pass the data to the template context
+    # Process prompt2
+    if work_experience_response:  # Replace with your condition
+        work_experience_response_data_1 = work_experience_response.question_10
+        messages.append({"role": "user", "content": prompt2})
+        chat_response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        assistant_reply2 = chat_response.choices[0].message.content
+        print(f"User Prompt 2: {prompt2}")
+        print(f"ChatGPT Response 2: {assistant_reply2}\n")
+        
+    # Process prompt2
+    if technical_skills_response:  # Replace with your condition
        
-        context = {'reply':reply, 'question_1_data': question_1_data}
-        return render(request, 'build_cv.html',context)
+        messages.append({"role": "user", "content": prompt2})
+        chat_response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        assistant_reply3 = chat_response.choices[0].message.content
+        print(f"User Prompt 3: {prompt3}")
+        print(f"ChatGPT Response 3: {assistant_reply3}\n")
+        
+        
+    if education_response:  # Replace with your condition
+       
+        messages.append({"role": "user", "content": prompt2})
+        chat_response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+        assistant_reply4 = chat_response.choices[0].message.content
+        print(f"User Prompt 4: {prompt4}")
+        print(f"ChatGPT Response 4: {assistant_reply4}\n")
+
+        
+    context = {'reply':assistant_reply1, 'latest_response':latest_response, 'question_1_data':question_1_data, 'work_experience_response':work_experience_response, 'assistant_reply2':assistant_reply2, 
+               'assistant_reply3':assistant_reply3, 'technical_skills_response':technical_skills_response,
+               'education_response':education_response, 'assistant_reply4':assistant_reply4}
+    return render(request, 'build_cv.html',context)
     
 def create_document(request):
     doc = docx.Document()
@@ -256,7 +306,7 @@ def generate_word_template(request):
 
 def test_front(request):
     
-    return render(request, 'test_html.html')
+    return render(request, 'test_cv.html')
 
 
 def test_buildCV(request):
@@ -292,3 +342,30 @@ def test_buildCV(request):
         context = {'reply':reply, 'question_1_data': question_1_data}
     
         return render(request, 'build_cv_template.html', context)
+    
+    
+def new_file(request):
+    
+    return render(request, 'new_file.html')
+    
+    
+def how_to_use(request):
+    
+    return render(request, 'how_to_use.html')
+
+
+def templates(request):
+    
+    return render(request, 'templates.html')
+
+def template_1(request):
+    return render(request, 'template_1.html')
+
+
+def template_2(request):
+    return render(request, 'template_2.html')
+
+
+def qa_animation(request):
+    
+    return render(request, 'qa_animation.html')

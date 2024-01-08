@@ -1,29 +1,12 @@
+<!-- This code snippet is an HTML template for a web page that displays a resume analysis. It includes a sidebar, a main content section with a resume score, a summary, feedback, and a button to build a CV. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resume Review</title>
+</head>
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        height: 100vh;
-        background-color: #f4f4f4;
-    }
-    .sidebar {
-        width: 200px;
-        background-color: #fff;
-        padding: 20px;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    }
-    .main-content {
-        flex-grow: 1;
-        padding: 20px;
-        background-color: #f4f4f4;
-    }
     .resume-score {
         width: 150px;
         height: 150px;
@@ -34,52 +17,33 @@
         text-align: center;
         line-height: 140px;
         margin-bottom: 20px;
+        transition: border-color 0.5s ease;
     }
-    .summary, .feedback, .education {
-        background-color: #fff;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    
+    .resume-score:hover {
+        border-color: red;
     }
-    .feedback-tabs {
-        display: flex;
-        margin-bottom: 10px;
-    }
-    .feedback-tab {
-        flex-grow: 1;
-        text-align: center;
-        padding: 10px;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-    }
-    .feedback-tab.active {
-        border-bottom: 2px solid blue;
-        color: blue;
-    }
-    /* Rest of the styles */
+    
 </style>
-</head>
-<body>
+<body style="font-family: 'Arial', sans-serif; margin: 0; padding: 0; display: flex; height: 100vh; background-color: #f4f4f4;">
 
-<div class="sidebar">
+<div class="sidebar" style="width: 200px; background-color: #fff; padding: 20px; box-shadow: 2px 0 5px rgba(0,0,0,0.1);">
     <!-- Sidebar content -->
 </div>
 
-<div class="main-content">
-    <h1 style="align:center"> Resume Analysis </h1>
-    <div class="resume-score">8.5</div>
-    <div class="summary">
+<div class="main-content" style="flex-grow: 1; padding: 20px; background-color: #f4f4f4;">
+    <h1 style="text-align: center;"> Resume Analysis </h1>
+    <div class="resume-score" style="width: 150px; height: 150px; border: 6px solid blue; border-radius: 50%; font-size: 2em; color: blue; text-align: center; line-height: 140px; margin-bottom: 20px;">8.5</div>
+    <div class="summary" style="background-color: #fff; padding: 20px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
         <!-- Summary content -->
 
         <h2> Summary </h2>
 
         <p>
-
             A professional Business Analyst with 5+ years of experience in conducting detailed analysis of business processes and requirements. Proven expertise in identifying areas for improvement and implementing effective solutions to optimize productivity and profitability. Strong analytical skills and ability to translate complex data into actionable insights. Excellent communication and stakeholder management skills to collaborate with cross-functional teams and drive successful project outcomes.
         </p>
     </div>
-    <div class="feedback">
+    <div class="feedback" style="background-color: #fff; padding: 20px; margin-bottom: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
         <div class="feedback-tabs">
         
         </div>
@@ -90,7 +54,7 @@
         <!-- Feedback content -->
     </div>
 
-    <button href = "/question_form" id="analyzeButton" style="height:10px, width:10px;"><a href="{% url 'question_form' %}" id="analyzeButton">Build CV</a> </button>
+    <a href="/question_form" style="display: block; text-align: center; background-color: blue; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Build CV</a>
    
 </div>
 

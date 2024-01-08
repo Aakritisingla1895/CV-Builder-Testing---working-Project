@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- ... other head elements ... -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Resume Analyzer Tool Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: white;
+    }
+    
+    .container {
+        color: white;
+        background-color: #000; /* Assuming a dark theme from the image */
+    }
+    
+    header h1 {
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .steps {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .step {
+        background-color: #333; /* A lighter shade for the step boxes */
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    
+    .step-number {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .step-description {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+    
+    .step-content {
+        margin-top: 20px;
+        /* Additional styling for the content within each step */
+    }
+
+
+    .upload-area, .description-area {
+        text-align: center;
+        padding: 20px;
+        border: 2px dashed #555; /* Dashed border for the upload areas */
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+    
+    .upload-area i, .description-area i {
+        color: #4d90fe; /* Icon color */
+        margin-bottom: 10px;
+    }
+    
+    .upload-area p, .description-area p {
+        color: #aaa; /* Lighter text color for instructions */
+    }
+    
+    .upload-link {
+        color: #4d90fe;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .btn {
+        background-color: #4d90fe; /* Button color */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        display: inline-block;
+        font-size: 16px;
+    }
+    
+    .btn:hover {
+        background-color: #3c7cd6;
+    }
+    
+    @media (max-width: 768px) {
+        .steps {
+            flex-direction: column;
+        }
+    }
+    
+    </style>
+
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Get your Resume Analyzed in a few steps</h1>
+        </header>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">Step 1</div>
+                <div class="step-description">Upload your Resume/CV</div>
+                <!-- Inside the .step-content for Step 1 -->
+                <div class="step-content">
+                    <div class="upload-area">
+                        <i class="fas fa-file-upload fa-3x"></i>
+                        <p>Drag & drop your resume here, or <a href="#" class="upload-link">browse</a></p>
+                        <button class="btn">Continue</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="step">
+                <div class="step-number">Step 2</div>
+                <div class="step-description">Add Job Description or Generate using AI</div>
+               <!-- Inside the .step-content for Step 2 -->
+                <div class="step-content">
+                    <div class="description-area">
+                        <i class="fas fa-briefcase fa-3x"></i>
+                        <p>Drag & drop job description here, or <a href="#" class="upload-link">browse</a></p>
+                        <button class="btn">Add Your Job Description</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

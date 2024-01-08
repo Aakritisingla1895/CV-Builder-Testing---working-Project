@@ -1,80 +1,211 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Resume Template</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form</title>
     <style>
         body {
-            font-family: Arial, Helvetica, sans-serif;
+            font-family: Arial, sans-serif;
+            background-color: #E0FFFF; /* Light Aqua Blue Background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        h1 {
-            font-size: 24px;
-            text-align: center;
+        .form-step {
+            display: none;
         }
 
-        h2 {
-            font-size: 18px;
-            margin-top: 20px;
+        .form-step.active {
+            display: block;
         }
 
-        ul {
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .action-button {
+            background-color: #4caf50; /* Green button */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Additional styles for the multi-step form */
+        #progressbar {
+            margin-bottom: 30px;
+            overflow: hidden;
+            counter-reset: step;
+        }
+
+        #progressbar li {
             list-style-type: none;
-            padding-left: 20px;
+            color: white;
+            text-transform: uppercase;
+            font-size: 9px;
+            width: 33.33%;
+            float: left;
+            position: relative;
         }
 
-        .contact-info {
-            margin-top: 20px;
+        #progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            display: block;
+            font-size: 10px;
+            color: #333;
+            background: white;
+            border-radius: 3px;
+            margin: 0 auto 5px auto;
         }
 
-        .profile {
-            margin-top: 20px;
+        #progressbar li:after {
+            content: '';
+            width: 100%;
+            height: 2px;
+            background: white;
+            position: absolute;
+            left: -50%;
+            top: 9px;
+            z-index: -1; /* Put it behind the numbers */
         }
 
-        .education {
-            margin-top: 20px;
+        #progressbar li:first-child:after {
+            content: none;
         }
 
-        .experience {
-            margin-top: 20px;
+        #progressbar li.active:before, #progressbar li.active:after {
+            background: #4caf50;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <h1>{{ name }} {{ title }}</h1>
-    <h2>{{ title }}</h2>
-
-    <div class="contact-info">
-        {% for item in contact_info %}
-            <p><strong>{{ item.label }}</strong>: {{ item.value }}</p>
-        {% endfor %}
-    </div>
-
-    <div class="profile">
-        <h2>Profile</h2>
-        <p>{{ profile }}</p>
-    </div>
-
-    <div class="education">
-        <h2>Education</h2>
-        <ul>
-            {% for institution in education %}
-                <li>{{ institution.institution }}, {{ institution.location }} ({{ institution.graduation_date }})</li>
-            {% endfor %}
+    <form id="msform" method="post" action="/question_form">
+        {% csrf_token %}
+        <!-- Progress bar -->
+        <ul id="progressbar">
+            <li class="active">Step 1</li>
+            <li>Step 2</li>
+            <li>Step 3</li>
         </ul>
-    </div>
+        <!-- Fieldsets -->
+        <fieldset class="form-step active">
+            <label for="{{ form.question_1.id_for_label }}">1. Full Name :</label>
+            {{ form.question_1 }}
+            <input type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+        <fieldset class="form-step">
+            <label for="{{ form.question_2.id_for_label }}">2. Contact Information (Phone number, Email):</label>
+            {{ form.question_2 }}
+            <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <input type="button" name="next" class="next action-button" value="Next" />
+        </fieldset>
+        <fieldset class="form-step">
+            <label for="{{ form.question_3.id_for_label }}">3. LinkedIn Profile URL</label>
+            {{ form.question_3 }}
+            <label for="{{ form.question_4.id_for_label }}">4. Availability:</label>
+            {{ form.question_4 }}
+            <label for="{{ form.question_5.id_for_label }}">5. Location Preference:</label>
+            {{ form.question_5 }}
+            <input type="button" name="previous" class="previous action-button" value="Previous" />
+            <input type="submit" name="submit" class="submit action-button" value="Submit" />
+        </fieldset>
+    </form>
 
-    <div class="experience">
-        <h2>Experience</h2>
-        <ul>
-            {% for company in experience %}
-                <li><strong>{{ company.company }}, {{ company.location }} ({{ company.dates_employed }})</strong></li>
-                <ul>
-                    {% for responsibility in company.responsibilities %}
-                        <li>{{ responsibility }}</li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-        </ul>
-    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var current_fs, next_fs, previous_fs; //fieldsets
+            var opacity;
+
+            $(".next").click(function(){
+                current_fs = $(this).parent();
+                next_fs = $(this).parent().next();
+
+                //Add Class Active
+                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                //show the next fieldset
+                next_fs.show();
+                //hide the current fieldset with style
+                current_fs.animate({opacity: 0}, {
+                    step: function(now) {
+                        // for making fielset appear animation
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        next_fs.css({'opacity': opacity});
+                    },
+                    duration: 600
+                });
+            });
+
+            $(".previous").click(function(){
+                current_fs = $(this).parent();
+                previous_fs = $(this).parent().prev();
+
+                //Remove class active
+                $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+
+                //show the previous fieldset
+                previous_fs.show();
+
+                //hide the current fieldset with style
+                current_fs.animate({opacity: 0}, {
+                    step: function(now) {
+                        // for making fieldset appear animation
+                        opacity = 1 - now;
+                        current_fs.css({
+                            'display': 'none',
+                            'position': 'relative'
+                        });
+                        previous_fs.css({'opacity': opacity});
+                    },
+                    duration: 600
+                });
+            });
+
+            $('.submit').click(function(){
+                return true;
+            })
+        });
+    </script>
 </body>
 </html>

@@ -23,10 +23,12 @@ urlpatterns = [
     path('generate_word_template',views.generate_word_template, name='generate_word_template'),
     path('test_front', views.test_front, name='test_front'),
     path('test_buildCV', views.test_buildCV, name='test_buildCV'),
-    
-    
-   
-    
-
+    path('progress_bar',views.progress_bar, name='progress_bar'),
+    path('new_file', views.new_file, name='new_file'),
+    path('how_to_use', views.how_to_use, name='how_to_use'),
+    path('templates', views.templates, name='templates'),
+    path('template_1', views.template_1, name='template_1'),
+    path('template_2', views.template_2, name='template_2'),
+    path('qa_animation', views.qa_animation, name='qa_animation'),
     
 ]
